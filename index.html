@@ -50,8 +50,8 @@ main{position:relative;z-index:5;max-width:640px;margin:0 auto;padding:30px 18px
 
 /* Invitación escondida en un panal */
 .revela{position:relative;width:min(100%,420px);margin:0 auto}
-.invitacion{display:block;width:100%;border-radius:26px;border:6px solid #fff;box-shadow:0 14px 30px #c2468f55;background:#fff}
-.panal{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:26px;cursor:pointer;background:#e08a10;-webkit-tap-highlight-color:transparent}
+.invitacion{display:block;width:100%;border-radius:26px;box-shadow:0 14px 30px #c2468f55}
+.panal.roto{background:transparent}
 .hx{position:absolute;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(145deg,#ffd24d,#f59a0c);transition:transform .9s cubic-bezier(.5,0,.8,.4),opacity .9s}
 .hx::after{content:"";position:absolute;inset:11%;clip-path:inherit;background:radial-gradient(circle at 50% 35%,#ffbd2e,#f08f00);box-shadow:inset 0 0 14px #0002}
 .guarda{position:absolute;z-index:2;left:50%;top:30%;width:34%;margin:-17% 0 0 -17%;animation:flotar 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0004);transition:opacity .4s}
@@ -63,8 +63,7 @@ main{position:relative;z-index:5;max-width:640px;margin:0 auto;padding:30px 18px
   pointer-events:none;animation:pulso 2s ease-in-out infinite;transition:opacity .4s}
 
 .pista.oculta{opacity:0;animation:none}
-.revela.ya .invitacion{animation:aparece 1s cubic-bezier(.3,1.5,.5,1),mecer 6s 1s ease-in-out infinite;cursor:pointer}
-.revela.rebota .invitacion{animation:rebote .6s}
+.revela.ya .invitacion{animation:mecer 6s 1.7s ease-in-out infinite;cursor:pointer}.revela.rebota .invitacion{animation:rebote .6s}
 
 h3.sec{font-family:var(--f-script);font-weight:400;font-size:clamp(1.5rem,6vw,2rem);text-align:center;color:#c2468f;margin:44px 0 14px}
 
@@ -172,8 +171,8 @@ footer{text-align:center;margin-top:40px;font-weight:700}
   <p id="fin">¡Hoy es la fiesta! 🎉</p>
 
   <div class="acciones rev">
-    <a class="btn miel" target="_blank" rel="noopener" href="https://maps.app.goo.gl/duxnGLdpYpSXWyH46">Ver ubicación 🗺️</a>
-    <button class="btn" id="cal">Guardar en calendario 📆</button>
+    <a class="btn miel" target="_blank" rel="noopener" href="https://maps.app.goo.gl/duxnGLdpYpSXWyH46">Ver ubicación </a>
+    <button class="btn" id="cal">Guardar en calendario</button>
   </div>
 
   <div class="mensaje rev">
@@ -251,6 +250,7 @@ new ResizeObserver(armarPanal).observe(revela);
 
 function descubrir(){
   if(abierto) return; abierto=true;
+  panal.classList.add('roto'); 
   ocultarPista();
   panal.classList.remove('sacude');
   panal.querySelector('.guarda').style.opacity=0;
@@ -319,7 +319,7 @@ function lluvia(n){
 }
 function globo(){
   const g = document.createElement('span');
-  g.className='flotante'; g.textContent = ['🌸','✨','🌼'][Math.floor(Math.random()*3)];
+  g.className='flotante'; g.textContent = ['🌸'][Math.floor(Math.random()*3)];
   g.style.left = Math.random()*95+'vw';
   g.style.fontSize = (20+Math.random()*20)+'px';
   g.style.animationDuration = (9+Math.random()*7)+'s';
