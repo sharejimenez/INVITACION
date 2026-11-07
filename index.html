@@ -54,13 +54,14 @@ main{position:relative;z-index:5;max-width:640px;margin:0 auto;padding:30px 18px
 .panal{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:26px;cursor:pointer;background:#e08a10;-webkit-tap-highlight-color:transparent}
 .hx{position:absolute;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(145deg,#ffd24d,#f59a0c);transition:transform .9s cubic-bezier(.5,0,.8,.4),opacity .9s}
 .hx::after{content:"";position:absolute;inset:11%;clip-path:inherit;background:radial-gradient(circle at 50% 35%,#ffbd2e,#f08f00);box-shadow:inset 0 0 14px #0002}
-.guarda{position:absolute;z-index:2;left:50%;top:50%;width:34%;margin:-17% 0 0 -17%;animation:flotar 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0004);transition:opacity .4s}
+.guarda{position:absolute;z-index:2;left:50%;top:30%;width:34%;margin:-17% 0 0 -17%;animation:flotar 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0004);transition:opacity .4s}
 .guarda img{width:100%;display:block}
 .panal.sacude .hx{animation:tiembla .55s ease-in-out}
 /* Texto encima del panal: desaparece al sacudir o tocar */
-.pista{position:absolute;z-index:5;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:8px 16px;border-radius:30px;
+.pista{position:absolute;z-index:5;left:50%;top:50%;bottom:auto;translate:-50% -50%;width:max-content;max-width:88%;padding:8px 16px;border-radius:30px;
   background:rgba(255,255,255,.9);box-shadow:0 4px 10px #0003;font-weight:800;font-size:clamp(.9rem,3.8vw,1.1rem);line-height:1.25;color:#c2468f;text-align:center;
   pointer-events:none;animation:pulso 2s ease-in-out infinite;transition:opacity .4s}
+
 .pista.oculta{opacity:0;animation:none}
 .revela.ya .invitacion{animation:aparece 1s cubic-bezier(.3,1.5,.5,1),mecer 6s 1s ease-in-out infinite;cursor:pointer}
 .revela.rebota .invitacion{animation:rebote .6s}
@@ -147,7 +148,7 @@ footer{text-align:center;margin-top:40px;font-weight:700}
 
 
 <!-- Abeja que vuela por toda la pantalla -->
-<img id="abejaVuela" src="abeja1.png" alt="" onerror="this.outerHTML='<div id=abejaVuela style=font-size:3rem>🐝</div>'">
+<img id="abejaVuela" src="descarga1.png" alt="" onerror="this.outerHTML='<div id=abejaVuela style=font-size:3rem>🐝</div>'">
 
 <main>
   <!-- Invitación escondida en un panal: sacude el celular o toca -->
@@ -156,7 +157,7 @@ footer{text-align:center;margin-top:40px;font-weight:700}
       <img class="invitacion" id="invImg" src="invitacion.png" alt="Estás invitado a la fiesta de la abejita chiquita, Grecia Kahory"
         onerror="this.outerHTML='<div class=invitacion id=invImg style=padding:60px&#32;16px;font-size:1.6rem;background:#fff>Estás invitado a la fiesta de la abejita chiquita 🐝<br>Grecia Kahory</div>'">
       <div class="panal" id="panal" role="button" tabindex="0" aria-label="Toca el panal para descubrir la invitación">
-        <div class="guarda"><img src="abeja1.png" alt="" onerror="this.outerHTML='<div style=font-size:3.4rem>🐝</div>'"></div>
+        <div class="guarda"><img src="descarga3.png" alt="" onerror="this.outerHTML='<div style=font-size:3.4rem>🐝</div>'"></div>
       </div>
       <p class="pista" id="pista"> ¡Sacude tu celular o toca el panal!</p>
     </div>
@@ -289,7 +290,7 @@ function tic(){
 tic(); setInterval(tic,20000);
 
 /* Confeti y detalles flotantes (sin globos ni corazones amarillos) */
-const emojis = ['🐝','🍯','🌸','⭐','🌼'];
+const emojis = ['🍯','🌸','⭐'];
 function lluvia(n){
   for(let i=0;i<n;i++){
     const e = document.createElement('span');
