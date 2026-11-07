@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Pacifico&display=swap" rel="stylesheet">
 <style>
 :root{
-  --rosa:#ffbde8; --rosa2:#ffe3f5; --miel:#f7a823; --miel2:#ffd24d; --lila:#c98bd6; --txt:#4a1d49;
+  --rosa:#ffbde8; --rosa2:#ffe3f5; --miel:#f7a823; --miel2:#ffd24d; --lila:#c98bd6; --txt:#4a1d49; --rosaCuenta:#f792cd;
   --f-title:'Baloo 2','Trebuchet MS',sans-serif; --f-script:'Pacifico','Brush Script MT',cursive;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -57,18 +57,22 @@ main{position:relative;z-index:5;max-width:640px;margin:0 auto;padding:30px 18px
 .guarda{position:absolute;z-index:2;left:50%;top:50%;width:34%;margin:-17% 0 0 -17%;animation:flotar 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0004);transition:opacity .4s}
 .guarda img{width:100%;display:block}
 .panal.sacude .hx{animation:tiembla .55s ease-in-out}
-.pista{margin-top:18px;font-weight:800;font-size:clamp(1rem,4vw,1.2rem);color:#c2468f;animation:pulso 2s ease-in-out infinite}
+/* Texto encima del panal: desaparece al sacudir o tocar */
+.pista{position:absolute;z-index:5;left:50%;bottom:7%;translate:-50% 0;width:max-content;max-width:88%;padding:8px 16px;border-radius:30px;
+  background:rgba(255,255,255,.9);box-shadow:0 4px 10px #0003;font-weight:800;font-size:clamp(.9rem,3.8vw,1.1rem);line-height:1.25;color:#c2468f;text-align:center;
+  pointer-events:none;animation:pulso 2s ease-in-out infinite;transition:opacity .4s}
+.pista.oculta{opacity:0;animation:none}
 .revela.ya .invitacion{animation:aparece 1s cubic-bezier(.3,1.5,.5,1),mecer 6s 1s ease-in-out infinite;cursor:pointer}
 .revela.rebota .invitacion{animation:rebote .6s}
 
 h3.sec{font-family:var(--f-script);font-weight:400;font-size:clamp(1.5rem,6vw,2rem);text-align:center;color:#c2468f;margin:44px 0 14px}
 
-/* Cuenta regresiva */
-.cuenta{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(6px,2vw,14px)}
-.cuenta div{background:linear-gradient(160deg,#ffd24d,#f59a0c);border-radius:50% 50% 46% 46%/ 38% 38% 62% 62%;aspect-ratio:1/1.1;display:grid;place-content:center;text-align:center;
-  box-shadow:0 6px 0 #c47404,0 10px 16px #0002;color:#4a2a00}
-.cuenta b{font-size:clamp(1.6rem,8vw,2.8rem);font-weight:800;line-height:1}
-.cuenta span{font-size:clamp(.65rem,2.8vw,.95rem);font-weight:700}
+/* Cuenta regresiva (sin segundos) */
+.cuenta{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,4vw,22px);max-width:380px;margin:0 auto;padding:6px}
+.cuenta div{background:var(--rosaCuenta);border:4px solid #fff;border-radius:28px;outline:3px dashed #c2468f;outline-offset:4px;
+  aspect-ratio:1/1.05;display:grid;place-content:center;text-align:center;box-shadow:0 8px 0 #d85fa8,0 12px 18px #c2468f55;color:var(--txt)}
+.cuenta b{font-size:clamp(1.9rem,9vw,3rem);font-weight:800;line-height:1}
+.cuenta span{font-size:clamp(.7rem,3vw,1rem);font-weight:700}
 #fin{text-align:center;font-family:var(--f-script);font-size:1.6rem;color:#c2468f;display:none}
 
 /* Detalles */
@@ -85,7 +89,7 @@ footer{text-align:center;margin-top:40px;font-weight:700}
 
 /* Música */
 #musica{position:fixed;z-index:70;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));width:56px;height:56px;border-radius:50%;border:0;font-size:1.6rem;cursor:pointer;
-  background:#fff;box-shadow:0 6px 14px #0004;display:grid;place-items:center}
+  background:#c77eb8;box-shadow:0 6px 14px rgba(187, 147, 183, 0.267);display:grid;place-items:center}
 #musica.on{animation:girar 4s linear infinite}
 
 /* Aparecer al hacer scroll */
@@ -95,7 +99,7 @@ footer{text-align:center;margin-top:40px;font-weight:700}
 /* ---------- Animaciones ---------- */
 @keyframes flotar{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
 @keyframes mecer{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-@keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes girar{to{transform:rotate(360deg)}}
 @keyframes zumbido{from{rotate:-6deg}to{rotate:6deg}}
 @keyframes caer{to{transform:translateY(110vh) rotate(720deg)}}
@@ -156,8 +160,8 @@ footer{text-align:center;margin-top:40px;font-weight:700}
       <div class="panal" id="panal" role="button" tabindex="0" aria-label="Toca el panal para descubrir la invitación">
         <div class="guarda"><img src="abeja1.png" alt="" onerror="this.outerHTML='<div style=font-size:3.4rem>🐝</div>'"></div>
       </div>
+      <p class="pista" id="pista"> ¡Sacude tu celular o toca el panal!</p>
     </div>
-    <p class="pista" id="pista">📱 ¡Sacude tu celular o toca el panal! 🍯</p>
   </header>
 
   <h3 class="sec rev">¡Falta muy poquito! 🐝</h3>
@@ -165,16 +169,8 @@ footer{text-align:center;margin-top:40px;font-weight:700}
     <div><b id="d">0</b><span>días</span></div>
     <div><b id="h">0</b><span>horas</span></div>
     <div><b id="m">0</b><span>minutos</span></div>
-    <div><b id="s">0</b><span>segundos</span></div>
   </div>
   <p id="fin">¡Hoy es la fiesta! 🎉</p>
-
-  <h3 class="sec rev">Los detalles</h3>
-  <div class="datos">
-    <div class="dato rev"><span class="ic">📅</span><div><strong>Domingo</strong><small>15 de noviembre</small></div></div>
-    <div class="dato rev"><span class="ic">⏰</span><div><strong>Hora</strong><small>3:00 PM</small></div></div>
-    <div class="dato rev"><span class="ic">📍</span><div><strong>Lugar</strong><small>Los Limones, Mixtepec</small></div></div>
-  </div>
 
   <div class="acciones rev">
     <a class="btn miel" target="_blank" rel="noopener" href="https://maps.app.goo.gl/duxnGLdpYpSXWyH46">Ver ubicación 🗺️</a>
@@ -182,8 +178,8 @@ footer{text-align:center;margin-top:40px;font-weight:700}
   </div>
 
   <div class="mensaje rev">
-    <em>Ven a zumbar con nosotros</em>
-    Habrá juegos, globos, música y mucha miel de alegría. ¡Te esperamos con muchas ganas! 🎈🍯
+    <em>¡ Te esperamos !</em>
+    Habrá  globos, música y mucha miel de alegría. ¡Te esperamos con muchas ganas! 🎈🍯
   </div>
 
   <footer class="rev">Con cariño, la abejita Grecia 🐝💛</footer>
@@ -212,12 +208,13 @@ $('abrir').onclick = () => {
   $('portada').classList.add('abierta');
   document.body.classList.remove('lock');
   setMusica(true);
-  lluvia(45);
+  lluvia(30);
 };
 
 /* ===== Invitación escondida en el panal ===== */
 const revela=$('revela'), panal=$('panal'), pista=$('pista');
 let abierto=false, sacudidas=0;
+const ocultarPista = () => pista.classList.add('oculta');
 
 function armarPanal(){
   if(abierto) return;
@@ -240,6 +237,7 @@ new ResizeObserver(armarPanal).observe(revela);
 
 function descubrir(){
   if(abierto) return; abierto=true;
+  ocultarPista();
   panal.classList.remove('sacude');
   panal.querySelector('.guarda').style.opacity=0;
   const hs=[...panal.querySelectorAll('.hx')];
@@ -251,23 +249,22 @@ function descubrir(){
     h.style.opacity=0;
   });
   revela.classList.add('ya');
-  lluvia(40);
-  pista.textContent='¡Sorpresa! 🎉 Toca la invitación para más magia 🐝';
-  setTimeout(()=>panal.remove(),1700);
+  lluvia(30);
+  setTimeout(()=>{ panal.remove(); pista.remove(); },1700);
 }
 function sacudir(){
   if(abierto) return;
+  ocultarPista();
   panal.classList.remove('sacude'); void panal.offsetWidth; panal.classList.add('sacude');
   sacudidas++;
   if(sacudidas>=2) setTimeout(descubrir,450);
-  else pista.textContent='¡Muy bien! Una sacudida más 🐝';
 }
 panal.addEventListener('click',descubrir);
 panal.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') descubrir(); });
 revela.addEventListener('click',()=>{
   if(!abierto) return;
   revela.classList.remove('rebote'); void revela.offsetWidth; revela.classList.add('rebote');
-  lluvia(14);
+  lluvia(10);
 });
 
 /* Detectar sacudida del celular */
@@ -283,19 +280,18 @@ window.addEventListener('devicemotion',e=>{
   ult=v;
 });
 
-/* Cuenta regresiva */
+/* Cuenta regresiva (días, horas y minutos) */
 function tic(){
   const t = FIESTA - new Date();
   if(t <= 0){ $('cuenta').style.display='none'; $('fin').style.display='block'; return; }
   $('d').textContent = Math.floor(t/864e5);
   $('h').textContent = Math.floor(t/36e5%24);
   $('m').textContent = Math.floor(t/6e4%60);
-  $('s').textContent = Math.floor(t/1e3%60);
 }
-tic(); setInterval(tic,1000);
+tic(); setInterval(tic,20000);
 
-/* Confeti y globos */
-const emojis = ['🐝','🍯','🌸','💛','⭐','🎈','🌼','💖'];
+/* Confeti y detalles flotantes (sin globos ni corazones amarillos) */
+const emojis = ['🐝','🍯','🌸','⭐','🌼'];
 function lluvia(n){
   for(let i=0;i<n;i++){
     const e = document.createElement('span');
@@ -309,13 +305,13 @@ function lluvia(n){
 }
 function globo(){
   const g = document.createElement('span');
-  g.className='flotante'; g.textContent = ['🎈','💛','🌸','✨'][Math.floor(Math.random()*4)];
+  g.className='flotante'; g.textContent = ['🌸','✨','🌼'][Math.floor(Math.random()*3)];
   g.style.left = Math.random()*95+'vw';
   g.style.fontSize = (20+Math.random()*20)+'px';
   g.style.animationDuration = (9+Math.random()*7)+'s';
   document.body.appendChild(g); setTimeout(()=>g.remove(),17000);
 }
-setInterval(globo,1800);
+setInterval(globo,3200);
 
 /* Rastro dorado al tocar la pantalla */
 document.addEventListener('click',e=>{
