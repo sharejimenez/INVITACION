@@ -46,20 +46,20 @@ body.lock{overflow:hidden;height:100vh}
 
 /* ---------- Contenido ---------- */
 main{position:relative;z-index:5;max-width:640px;margin:0 auto;padding:30px 18px 110px}
-.hero{text-align:center;position:relative;padding-top:20px}
-.arcoiris{position:relative;width:min(88%,420px);aspect-ratio:2/1;margin:0 auto -14%;border-radius:999px 999px 0 0;
-  background:radial-gradient(circle at 50% 100%,transparent 0 40%,#b388ff 40% 47%,#7ec8ff 47% 54%,#8ee6a0 54% 61%,#fff27a 61% 68%,#ffb870 68% 75%,#ff7eb6 75% 82%,transparent 82%);
-  clip-path:inset(0 0 0 0)}
-.abeja-hero{position:absolute;width:30%;left:36%;top:-34%;animation:flotar 3s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0003)}
-.nube{position:absolute;bottom:-6%;width:34%;height:34%;background:#fff;border-radius:60px;box-shadow:0 8px 14px #7ab8ff55;animation:nube 7s ease-in-out infinite alternate}
-.nube::before,.nube::after{content:"";position:absolute;background:#fff;border-radius:50%}
-.nube::before{width:55%;height:120%;left:12%;top:-55%}.nube::after{width:45%;height:100%;right:10%;top:-35%}
-.nube.i{left:-4%}.nube.d{right:-4%;animation-delay:-3s}
-.tarjeta{position:relative;background:rgba(255,255,255,.72);backdrop-filter:blur(4px);border-radius:32px;padding:clamp(70px,16vw,100px) 20px 28px;
-  box-shadow:0 12px 30px #c2468f33;border:3px dashed #ffb3de}
-h2.titulo{font-size:clamp(2.2rem,10vw,3.4rem);font-weight:800;line-height:1;color:#2a0f2a}
-.sub{font-size:clamp(1rem,4vw,1.25rem);margin-top:6px;font-weight:500}
-.nombre{display:inline-block;margin-top:16px;font-family:var(--f-script);font-size:clamp(1.5rem,7vw,2.2rem);color:#fff;background:linear-gradient(135deg,#dba0d0,#c98bd6);padding:6px 26px 12px;border-radius:20px;box-shadow:0 6px 0 #a768b5;animation:mecer 3.5s ease-in-out infinite}
+.hero{text-align:center;position:relative;padding-top:14px}
+
+/* Invitación escondida en un panal */
+.revela{position:relative;width:min(100%,420px);margin:0 auto}
+.invitacion{display:block;width:100%;border-radius:26px;border:6px solid #fff;box-shadow:0 14px 30px #c2468f55;background:#fff}
+.panal{position:absolute;inset:0;z-index:3;overflow:hidden;border-radius:26px;cursor:pointer;background:#e08a10;-webkit-tap-highlight-color:transparent}
+.hx{position:absolute;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(145deg,#ffd24d,#f59a0c);transition:transform .9s cubic-bezier(.5,0,.8,.4),opacity .9s}
+.hx::after{content:"";position:absolute;inset:11%;clip-path:inherit;background:radial-gradient(circle at 50% 35%,#ffbd2e,#f08f00);box-shadow:inset 0 0 14px #0002}
+.guarda{position:absolute;z-index:2;left:50%;top:50%;width:34%;margin:-17% 0 0 -17%;animation:flotar 2.6s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0004);transition:opacity .4s}
+.guarda img{width:100%;display:block}
+.panal.sacude .hx{animation:tiembla .55s ease-in-out}
+.pista{margin-top:18px;font-weight:800;font-size:clamp(1rem,4vw,1.2rem);color:#c2468f;animation:pulso 2s ease-in-out infinite}
+.revela.ya .invitacion{animation:aparece 1s cubic-bezier(.3,1.5,.5,1),mecer 6s 1s ease-in-out infinite;cursor:pointer}
+.revela.rebota .invitacion{animation:rebote .6s}
 
 h3.sec{font-family:var(--f-script);font-weight:400;font-size:clamp(1.5rem,6vw,2rem);text-align:center;color:#c2468f;margin:44px 0 14px}
 
@@ -97,11 +97,13 @@ footer{text-align:center;margin-top:40px;font-weight:700}
 @keyframes mecer{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 @keyframes pulso{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes girar{to{transform:rotate(360deg)}}
-@keyframes nube{from{transform:translateX(-10px)}to{transform:translateX(14px)}}
 @keyframes zumbido{from{rotate:-6deg}to{rotate:6deg}}
 @keyframes caer{to{transform:translateY(110vh) rotate(720deg)}}
 @keyframes subir{to{transform:translateY(-115vh) translateX(30px)}}
 @keyframes desvanecer{to{opacity:0;transform:scale(.2)}}
+@keyframes tiembla{0%,100%{rotate:0deg}20%{rotate:-7deg;translate:-3px 0}60%{rotate:7deg;translate:3px 0}}
+@keyframes aparece{0%{transform:scale(.7) rotate(-6deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes rebote{0%,100%{transform:scale(1)}40%{transform:scale(1.05) rotate(-2deg)}70%{transform:scale(.98) rotate(2deg)}}
 @keyframes vuelo{
   0%{transform:translate(-120px,70vh)}
   12%{transform:translate(25vw,45vh)}
@@ -128,8 +130,6 @@ footer{text-align:center;margin-top:40px;font-weight:700}
   <div>
     <img class="sobre-bee" src="descarga.png" alt="Abejita" onerror="this.outerHTML='<div class=sobre-bee style=font-size:6rem>🐝</div>'">
     <h1>Una invitación<br>muy dulce 🍯</h1>
-        <p></p>
-
     <p>Para ti, de parte de Grecia Kahory</p>
     <button class="btn pulso" id="abrir">Abrir invitación </button>
   </div>
@@ -148,16 +148,16 @@ footer{text-align:center;margin-top:40px;font-weight:700}
 <img id="abejaVuela" src="abeja1.png" alt="" onerror="this.outerHTML='<div id=abejaVuela style=font-size:3rem>🐝</div>'">
 
 <main>
+  <!-- Invitación escondida en un panal: sacude el celular o toca -->
   <header class="hero">
-    <div class="arcoiris">
-      <img class="abeja-hero" src="abeja1.png" alt="Abejita" onerror="this.outerHTML='<div class=abeja-hero style=font-size:3.4rem>🐝</div>'">
-      <div class="nube i"></div><div class="nube d"></div>
+    <div class="revela" id="revela">
+      <img class="invitacion" id="invImg" src="invitacion.png" alt="Estás invitado a la fiesta de la abejita chiquita, Grecia Kahory"
+        onerror="this.outerHTML='<div class=invitacion id=invImg style=padding:60px&#32;16px;font-size:1.6rem;background:#fff>Estás invitado a la fiesta de la abejita chiquita 🐝<br>Grecia Kahory</div>'">
+      <div class="panal" id="panal" role="button" tabindex="0" aria-label="Toca el panal para descubrir la invitación">
+        <div class="guarda"><img src="abeja1.png" alt="" onerror="this.outerHTML='<div style=font-size:3.4rem>🐝</div>'"></div>
+      </div>
     </div>
-    <div class="tarjeta">
-      <h2 class="titulo">Estás invitado</h2>
-      <p class="sub">a la fiesta de la abejita chiquita</p>
-      <div class="nombre">Grecia Kahory</div>
-    </div>
+    <p class="pista" id="pista">📱 ¡Sacude tu celular o toca el panal! 🍯</p>
   </header>
 
   <h3 class="sec rev">¡Falta muy poquito! 🐝</h3>
@@ -192,7 +192,6 @@ footer{text-align:center;margin-top:40px;font-weight:700}
 <script>
 /* ====== CONFIGURA AQUÍ ====== */
 const FIESTA = new Date(2026, 10, 15, 15, 0, 0);   // 15 nov 2026, 3:00 PM
-const WHATSAPP = "";                                // ej: "522221234567" (opcional)
 /* ============================ */
 
 const $ = id => document.getElementById(id);
@@ -205,13 +204,84 @@ function setMusica(on){
 }
 btnM.onclick = () => audio.paused ? setMusica(true) : setMusica(false);
 
-/* Abrir invitación */
+/* Abrir invitación (también pide permiso de movimiento en iPhone) */
 $('abrir').onclick = () => {
+  if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission==='function'){
+    DeviceMotionEvent.requestPermission().catch(()=>{});
+  }
   $('portada').classList.add('abierta');
   document.body.classList.remove('lock');
   setMusica(true);
   lluvia(45);
 };
+
+/* ===== Invitación escondida en el panal ===== */
+const revela=$('revela'), panal=$('panal'), pista=$('pista');
+let abierto=false, sacudidas=0;
+
+function armarPanal(){
+  if(abierto) return;
+  const W=revela.clientWidth, H=revela.clientHeight; if(!W||!H) return;
+  panal.querySelectorAll('.hx').forEach(h=>h.remove());
+  const hw=Math.max(58,W/5), hh=hw*1.1547, paso=hh*.75;
+  for(let r=-1;r*paso<H+hh;r++){
+    for(let c=-1;c*hw<W+hw;c++){
+      const h=document.createElement('div'); h.className='hx';
+      const x=c*hw+(r%2?hw/2:0)-2, y=r*paso-2;
+      h.style.cssText=`left:${x}px;top:${y}px;width:${hw+4}px;height:${hh+4}px`;
+      h.dataset.x=x+hw/2-W/2; h.dataset.y=y+hh/2-H/2;
+      panal.insertBefore(h,panal.firstChild);
+    }
+  }
+}
+const imgEl=$('invImg');
+if(imgEl.complete) armarPanal(); else imgEl.addEventListener('load',armarPanal);
+new ResizeObserver(armarPanal).observe(revela);
+
+function descubrir(){
+  if(abierto) return; abierto=true;
+  panal.classList.remove('sacude');
+  panal.querySelector('.guarda').style.opacity=0;
+  const hs=[...panal.querySelectorAll('.hx')];
+  const max=Math.max(...hs.map(h=>Math.hypot(h.dataset.x,h.dataset.y)),1);
+  hs.forEach(h=>{
+    const x=+h.dataset.x, y=+h.dataset.y, d=Math.hypot(x,y)/max;
+    h.style.transitionDelay=(d*350)+'ms';
+    h.style.transform=`translate(${x*.8+(Math.random()-.5)*80}px,${y*.5+260+Math.random()*160}px) rotate(${(Math.random()-.5)*260}deg) scale(.4)`;
+    h.style.opacity=0;
+  });
+  revela.classList.add('ya');
+  lluvia(40);
+  pista.textContent='¡Sorpresa! 🎉 Toca la invitación para más magia 🐝';
+  setTimeout(()=>panal.remove(),1700);
+}
+function sacudir(){
+  if(abierto) return;
+  panal.classList.remove('sacude'); void panal.offsetWidth; panal.classList.add('sacude');
+  sacudidas++;
+  if(sacudidas>=2) setTimeout(descubrir,450);
+  else pista.textContent='¡Muy bien! Una sacudida más 🐝';
+}
+panal.addEventListener('click',descubrir);
+panal.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') descubrir(); });
+revela.addEventListener('click',()=>{
+  if(!abierto) return;
+  revela.classList.remove('rebote'); void revela.offsetWidth; revela.classList.add('rebote');
+  lluvia(14);
+});
+
+/* Detectar sacudida del celular */
+let ult=null, ultSac=0;
+window.addEventListener('devicemotion',e=>{
+  if(document.body.classList.contains('lock')||abierto) return;
+  const a=e.accelerationIncludingGravity; if(!a) return;
+  const v={x:a.x||0,y:a.y||0,z:a.z||0};
+  if(ult){
+    const f=Math.abs(v.x-ult.x)+Math.abs(v.y-ult.y)+Math.abs(v.z-ult.z);
+    if(f>28 && Date.now()-ultSac>700){ ultSac=Date.now(); sacudir(); }
+  }
+  ult=v;
+});
 
 /* Cuenta regresiva */
 function tic(){
@@ -247,7 +317,7 @@ function globo(){
 }
 setInterval(globo,1800);
 
-/* Tocar la abeja grande / pantalla = confeti */
+/* Rastro dorado al tocar la pantalla */
 document.addEventListener('click',e=>{
   if(e.target.closest('.btn,#musica')) return;
   const r = document.createElement('span');
@@ -268,9 +338,6 @@ $('cal').onclick = () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='fiesta-grecia.ics'; a.click();
 };
-
-/* WhatsApp */
-$('wa').href = 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('¡Hola! Confirmo mi asistencia a la fiesta de la abejita chiquita de Grecia Kahory 🐝');
 </script>
 </body>
 </html>
